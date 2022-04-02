@@ -1,39 +1,61 @@
 import './App.css';
 import Boton from './components/boton';
+import Window from './components/window';
+import ButtonClear from './components/buttonClear';
+import { useState } from 'react'
+import { evaluate } from 'mathjs'
 
 function App() {
+  const [window, setWindow] = useState('')
+
+  const addWindow = (val) => {
+    setWindow(window + val);
+  };
+
+  const calculate = () => {
+    if (window) {
+      setWindow(evaluate(window));
+    } else {
+      alert('Ingresa valores')
+    }
+
+  };
+
   return (
     <div className="App">
       <div className='titulo'>
         <h1 >Calculadora en React</h1>
       </div>
       <div className='contenedor-calculadora'>
+        <Window input={window} />
         <div className='fila'>
-          <Boton>1</Boton>
-          <Boton>2</Boton>
-          <Boton>3</Boton>
-          <Boton>+</Boton>
+          <Boton manipuleClick={addWindow}>1</Boton>
+          <Boton manipuleClick={addWindow}>2</Boton>
+          <Boton manipuleClick={addWindow}>3</Boton>
+          <Boton manipuleClick={addWindow}>+</Boton>
 
         </div>
         <div className='fila'>
-          <Boton>4</Boton>
-          <Boton>5</Boton>
-          <Boton>6</Boton>
-          <Boton>-</Boton>
+          <Boton manipuleClick={addWindow}>4</Boton>
+          <Boton manipuleClick={addWindow}>5</Boton>
+          <Boton manipuleClick={addWindow}>6</Boton>
+          <Boton manipuleClick={addWindow}>-</Boton>
         </div>
         <div className='fila'>
-          <Boton>7</Boton>
-          <Boton>8</Boton>
-          <Boton>9</Boton>
-          <Boton>*</Boton>
+          <Boton manipuleClick={addWindow}>7</Boton>
+          <Boton manipuleClick={addWindow}>8</Boton>
+          <Boton manipuleClick={addWindow}>9</Boton>
+          <Boton manipuleClick={addWindow}>*</Boton>
         </div>
         <div className='fila'>
-          <Boton> = </Boton>
-          <Boton>0</Boton>
-          <Boton>.</Boton>
-          <Boton>/</Boton>
+          <Boton manipuleClick={calculate} > = </Boton>
+          <Boton manipuleClick={addWindow} >0</Boton>
+          <Boton manipuleClick={addWindow} >.</Boton>
+          <Boton manipuleClick={addWindow} >/</Boton>
         </div>
-        <div className='fila'></div>
+        <div className='fila'>
+          <ButtonClear clear={() => setWindow('')}>Limpiar</ButtonClear>
+        </div>
       </div>
     </div>
   );
